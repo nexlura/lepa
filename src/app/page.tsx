@@ -1,4 +1,5 @@
 import Link from 'next/link'
+// import MobileNav from './components/MobileNav'
 
 export default function Home() {
   return (
@@ -10,13 +11,15 @@ export default function Home() {
             <div className="flex items-center">
               <h1 className="text-2xl font-bold text-primary-600">Lepa</h1>
             </div>
+
+            {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
               <Link href="#features" className="text-foreground hover:text-primary-600 transition-colors">
                 Features
               </Link>
-              <Link href="#pricing" className="text-foreground hover:text-primary-600 transition-colors">
+              {/* <Link href="#pricing" className="text-foreground hover:text-primary-600 transition-colors">
                 Pricing
-              </Link>
+              </Link> */}
               <Link href="#contact" className="text-foreground hover:text-primary-600 transition-colors">
                 Contact
               </Link>
@@ -24,9 +27,17 @@ export default function Home() {
                 href="#demo"
                 className="bg-primary-500 text-white px-4 py-2 rounded-lg hover:bg-primary-600 transition-colors"
               >
-                Get Demo
+                Join Wait List
               </Link>
             </div>
+
+            {/* Mobile Join Wait List Button */}
+            <Link
+              href="#demo"
+              className="md:hidden bg-primary-500 text-white px-4 py-2 rounded-lg hover:bg-primary-600 transition-colors"
+            >
+              Join Wait List
+            </Link>
           </div>
         </div>
       </nav>
@@ -40,7 +51,7 @@ export default function Home() {
               <span className="text-primary-600 block">Admissions</span>
             </h1>
             <p className="text-xl text-foreground/80 max-w-3xl mx-auto mb-8 font-serif">
-              &ldquo;The modern solution for primary and secondary schools to manage admissions,
+              &ldquo;The modern solution for schools to manage admissions,
               track applications, and welcome new students with ease.&rdquo;
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -48,14 +59,14 @@ export default function Home() {
                 href="#demo"
                 className="bg-primary-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary-600 transition-colors"
               >
-                Start Free Trial
+                Join Wait List
               </Link>
-              <Link
+              {/* <Link
                 href="#features"
                 className="border-2 border-primary-500 text-primary-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary-50 transition-colors"
               >
                 Learn More
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>
@@ -120,14 +131,15 @@ export default function Home() {
             Ready to Transform Your Admissions Process?
           </h2>
           <p className="text-xl text-primary-100 mb-8 font-serif">
-            &ldquo;Join hundreds of schools already using Lepa to streamline their admissions.&rdquo;
+            &ldquo;
+            Join the waitlist and be among the first to streamline your admissions with Lepa.&rdquo;
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="#contact"
               className="bg-white text-primary-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary-50 transition-colors"
             >
-              Schedule Demo
+              Join Wait List
             </Link>
             <Link
               href="#contact"
@@ -150,23 +162,23 @@ export default function Home() {
               </p>
             </div>
 
-            <div>
+            {/* <div>
               <h4 className="font-semibold mb-4">Product</h4>
               <ul className="space-y-2 text-white/70">
                 <li><a href="#" className="hover:text-primary-400 transition-colors">Features</a></li>
                 <li><a href="#" className="hover:text-primary-400 transition-colors">Pricing</a></li>
                 <li><a href="#" className="hover:text-primary-400 transition-colors">Demo</a></li>
               </ul>
-            </div>
+            </div> */}
 
-            <div>
+            {/* <div>
               <h4 className="font-semibold mb-4">Support</h4>
               <ul className="space-y-2 text-white/70">
                 <li><a href="#" className="hover:text-primary-400 transition-colors">Help Center</a></li>
                 <li><a href="#" className="hover:text-primary-400 transition-colors">Contact</a></li>
                 <li><a href="#" className="hover:text-primary-400 transition-colors">Privacy</a></li>
               </ul>
-            </div>
+            </div> */}
           </div>
 
           <div className="border-t border-white/20 mt-8 pt-8 text-center text-white/70">
