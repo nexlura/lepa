@@ -1,9 +1,6 @@
 import { Button } from '@/components/UIKit/Button'
 import { Dialog, DialogActions, DialogBody, DialogDescription, DialogTitle } from '@/components/UIKit/Dialog'
-import { Field, Label } from '@/components/UIKit/Fieldset'
-import { Input } from '@/components/UIKit/Input'
 import WaitlistForm from './WaitlistForm'
-
 interface WaitlistModalProps {
     isOpen: boolean
     setIsOpen: (args: boolean) => void
@@ -12,16 +9,12 @@ interface WaitlistModalProps {
 const WaitlistModal = ({ isOpen, setIsOpen }: WaitlistModalProps) => {
 
     return (
-        <Dialog size="xl" open={isOpen} onClose={setIsOpen}>
+        <Dialog size="xl" open={isOpen} onClose={setIsOpen} className='relative z-20'>
             <DialogTitle>Get Early Access!</DialogTitle>
             <DialogDescription>
                 Be among the first to streamline your admissions with Lepa.
             </DialogDescription>
             <DialogBody>
-                {/* <Field>
-                    <Label>Amount</Label>
-                    <Input name="amount" placeholder="$0.00" />
-                </Field> */}
                 <WaitlistForm />
             </DialogBody>
             <DialogActions>
@@ -30,6 +23,5 @@ const WaitlistModal = ({ isOpen, setIsOpen }: WaitlistModalProps) => {
         </Dialog>
     )
 }
-
 
 export default WaitlistModal

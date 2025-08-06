@@ -24,9 +24,6 @@ const Navigation = () => {
                             <Link href="#features" className="text-foreground hover:text-primary-600 transition-colors">
                                 Features
                             </Link>
-                            {/* <Link href="#pricing" className="text-foreground hover:text-primary-600 transition-colors">
-                                Pricing
-                            </Link> */}
                             <Link href="#contact" className="text-foreground hover:text-primary-600 transition-colors">
                                 Contact
                             </Link>
