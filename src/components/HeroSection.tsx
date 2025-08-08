@@ -25,8 +25,9 @@ const HeroSection = () => {
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Button
                                 onClick={() => setOpen(true)}
-                                className="md:hidden rounded-lg"
+                                className=" rounded-lg md:w-sm md:py-2 md:text-lg"
                                 color='primary'
+
                             >
                                 Join waitlist
                             </Button>

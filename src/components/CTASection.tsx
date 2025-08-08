@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { useState } from 'react'
 
 import WaitlistModal from './WaitlistModal'
@@ -24,16 +23,10 @@ const CTASection = () => {
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Button
                             onClick={() => setOpen(true)}
-                            className="bg-white text-primary-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary-50 transition-colors"
+                            className="bg-white text-primary-600 px-8 md:px-16 py-4 rounded-lg text-lg font-semibold hover:bg-primary-50 transition-colors"
                         >
                             Join waitlist
                         </Button>
-                        <Link
-                            href="#contact"
-                            className="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-primary-600 transition-colors"
-                        >
-                            Contact Us
-                        </Link>
                     </div>
                 </div>
             </section>

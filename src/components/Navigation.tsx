@@ -24,9 +24,6 @@ const Navigation = () => {
                             <Link href="#features" className="text-foreground hover:text-primary-600 transition-colors">
                                 Features
                             </Link>
-                            <Link href="#contact" className="text-foreground hover:text-primary-600 transition-colors">
-                                Contact
-                            </Link>
                             <button
                                 onClick={() => setOpen(true)}
                                 type='button'

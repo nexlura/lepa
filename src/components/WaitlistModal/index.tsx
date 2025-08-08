@@ -17,8 +17,13 @@ const WaitlistModal = ({ isOpen, setIsOpen }: WaitlistModalProps) => {
             <DialogBody>
                 <WaitlistForm />
             </DialogBody>
-            <DialogActions>
-                <Button onClick={() => setIsOpen(false)} color='primary'>Join waitlist</Button>
+            <DialogActions >
+                <Button outline className='' onClick={() => setIsOpen(false)} >
+                    Cancel
+                </Button>
+                <Button className='' onClick={() => setIsOpen(false)} color='primary'>
+                    Join waitlist
+                </Button>
             </DialogActions>
         </Dialog>
     )

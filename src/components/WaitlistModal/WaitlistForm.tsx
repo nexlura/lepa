@@ -1,11 +1,25 @@
-import { MagnifyingGlassIcon } from "@heroicons/react/16/solid"
+'use client'
+
 import { Combobox, ComboboxLabel, ComboboxOption } from "../UIKit/ComboBox"
 import { Field, Label } from "../UIKit/Fieldset"
-import { Input, InputGroup } from "../UIKit/Input"
+import { Input } from "../UIKit/Input"
+import { useState } from "react"
 
-const levels = [{ name: 'Pre-Primary' }, { name: 'primary' }, { name: 'secondary' }, { name: 'all levels' }]
+const levels = [
+    { id: 1, name: 'Pre-Primary' },
+    { id: 2, name: 'Primary' },
+    { id: 3, name: 'Secondary' },
+    { id: 4, name: 'All Levels' }
+]
 
 const WaitlistForm = () => {
+    const [selectedLevel, setSelectedLevel] = useState(levels[0])
+
+    const handleLevelChange = (level: typeof levels[0] | null) => {
+        if (level) {
+            setSelectedLevel(level)
+        }
+    }
 
     return (
         <form>
@@ -20,10 +34,11 @@ const WaitlistForm = () => {
                         <Field>
                             <Label className="text-sm/6 text-gray-900 font-medium">School Level</Label>
                             <Combobox
-                                name="level"
+                                name="school-level"
                                 options={levels}
                                 displayValue={(level) => level?.name}
-                                placeholder="Select school level&hellip;"
+                                defaultValue={selectedLevel}
+                                onChange={handleLevelChange}
                             >
                                 {(level) => (
                                     <ComboboxOption value={level}>
@@ -43,10 +58,7 @@ const WaitlistForm = () => {
                         </Field>
                         <Field>
                             <Label className="text-sm/6 text-gray-900 font-medium">Phone Number</Label>
-                            <InputGroup className="flex">
-                                <MagnifyingGlassIcon />
-                                <Input name="search" placeholder="Search&hellip;" aria-label="Search" />
-                            </InputGroup>
+                            <Input name="phone-number" placeholder="Phone Number" />
                         </Field>
                     </div>
                 </div>
