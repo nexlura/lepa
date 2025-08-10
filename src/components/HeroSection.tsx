@@ -27,7 +27,6 @@ const HeroSection = () => {
                                 onClick={() => setOpen(true)}
                                 className=" rounded-lg md:w-sm md:py-2 md:text-lg"
                                 color='primary'
-
                             >
                                 Join waitlist
                             </Button>
