@@ -1,8 +1,10 @@
 'use client'
 
-import { useCallback, useContext, useMemo, useState } from "react"
+import { useContext, useMemo, useState } from "react"
 import { z } from "zod"
 import { XCircleIcon, XMarkIcon } from "@heroicons/react/20/solid"
+import { useForm } from 'react-hook-form'
+import { zodResolver } from "@hookform/resolvers/zod"
 
 import { Combobox, ComboboxLabel, ComboboxOption } from "../UIKit/ComboBox"
 import { ErrorMessage, Field, Label } from "../UIKit/Fieldset"
@@ -18,7 +20,6 @@ const levels = [
 
 const WaitlistSchema = z.object({
     schoolName: z.string().min(2, 'School name is required'),
-    schoolLevel: z.string().min(1, 'School level is required'),
     adminFullName: z.string().min(2, 'Full name is required'),
     adminPhone: z
         .string()
@@ -26,8 +27,7 @@ const WaitlistSchema = z.object({
         .regex(/^[+()\-\s0-9]{7,}$/i, 'Enter a valid phone number'),
 })
 
-type WaitlistFormErrors = Partial<Record<keyof z.infer<typeof WaitlistSchema>, string>>
-
+export type Waitlist = z.infer<typeof WaitlistSchema>
 interface WaitlistFormProps {
     onSubmittingChange?: (isSubmitting: boolean) => void
     onSuccess?: () => void
@@ -65,11 +65,19 @@ const Alert = (props: { message: string, setShowAlert: (args: boolean) => void }
 
 
 const WaitlistForm = ({ onSubmittingChange, onSuccess, setIsOpen }: WaitlistFormProps) => {
+    const {
+        formState: { errors },
+        register,
+        handleSubmit,
+        reset,
+    } = useForm<Waitlist>({
+        resolver: zodResolver(WaitlistSchema),
+    })
+
     const { setFeedback } = useContext(FeedbackContext)
 
 
-    const [selectedLevel, setSelectedLevel] = useState(levels[0])
-    const [errors, setErrors] = useState<WaitlistFormErrors>({})
+    const [selectedLevel, setSelectedLevel] = useState(levels[1])
     const [showAlert, setShowAlert] = useState(false)
     const [submittionRes, setSubmittionRes] = useState<string>('')
 
@@ -79,40 +87,29 @@ const WaitlistForm = ({ onSubmittingChange, onSuccess, setIsOpen }: WaitlistForm
         }
     }
 
-    const handleSubmit = useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
+    const onSubmit = async (data: Waitlist) => {
+        const { adminFullName, adminPhone, schoolName } = data
 
         setSubmittionRes('')
+        const formData = new FormData()
 
-        const form = event.currentTarget
-        const formData = new FormData(form)
+        formData.append('adminFullName', adminFullName)
+        formData.append('adminPhone', adminPhone)
+        formData.append('schoolName', schoolName)
 
         const payload = {
-            schoolName: String(formData.get('school-name') || '').trim(),
+            schoolName: String(formData.get('schoolName')).trim(),
             schoolLevel: selectedLevel?.name ?? '',
-            adminFullName: String(formData.get('full-name') || '').trim(),
-            adminPhone: String(formData.get('phone-number') || '').trim(),
+            adminFullName: String(formData.get('adminFullName')).trim(),
+            adminPhone: String(formData.get('adminPhone')).trim(),
         }
 
-        const parsed = WaitlistSchema.safeParse(payload)
-        if (!parsed.success) {
-            const fieldErrors: WaitlistFormErrors = {}
-            const flat = parsed.error.flatten().fieldErrors
-            if (flat.schoolName?.[0]) fieldErrors.schoolName = flat.schoolName[0]
-            if (flat.schoolLevel?.[0]) fieldErrors.schoolLevel = flat.schoolLevel[0]
-            if (flat.adminFullName?.[0]) fieldErrors.adminFullName = flat.adminFullName[0]
-            if (flat.adminPhone?.[0]) fieldErrors.adminPhone = flat.adminPhone[0]
-            setErrors(fieldErrors)
-            return
-        }
-
-        setErrors({})
         onSubmittingChange?.(true)
         try {
             const res = await fetch('/api/waitlist', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(parsed.data),
+                body: JSON.stringify(payload),
             })
 
             if (!res.ok) {
@@ -122,30 +119,34 @@ const WaitlistForm = ({ onSubmittingChange, onSuccess, setIsOpen }: WaitlistForm
                 return
             } else {
                 setIsOpen(false)
-                setFeedback({ status: 'success', text: 'Thanks for joining!  We’ll notify you when your spot is available' })
+                setFeedback({ status: 'success', text: `Thanks for joining!  We’ll notify you when your spot is available` })
             }
 
             onSuccess?.()
-            form.reset()
+            reset()
         } finally {
             onSubmittingChange?.(false)
         }
-    }, [onSubmittingChange, onSuccess, selectedLevel, setFeedback, setIsOpen])
+    }
 
     useMemo(() => submittionRes ? setShowAlert(true) : setShowAlert(false), [submittionRes])
 
     return (
         <>
             {showAlert && (<Alert message={submittionRes} setShowAlert={setShowAlert} />)}
-            <form id="waitlist-form" onSubmit={handleSubmit}>
+            <form id="waitlist-form" onSubmit={handleSubmit(onSubmit)}>
                 <div className="space-y-1 mt-10">
                     <div className="border-gray-900/10 pb-8">
                         <h2 className="text-base/7 font-semibold text-gray-900">School Information</h2>
                         <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
                             <Field className="w-full">
                                 <Label className="text-sm/6 text-gray-900 font-medium">School Name</Label>
-                                <Input name="school-name" placeholder="School Name" required data-invalid={Boolean(errors.schoolName)} aria-invalid={Boolean(errors.schoolName)} />
-                                {errors.schoolName ? <ErrorMessage>{errors.schoolName}</ErrorMessage> : null}
+                                <Input
+                                    placeholder="School Name"
+                                    invalid={errors.schoolName ? true : false}
+                                    {...register("schoolName")}
+                                />
+                                {errors.schoolName ? <ErrorMessage>{errors.schoolName.message}</ErrorMessage> : null}
                             </Field>
                             <Field>
                                 <Label className="text-sm/6 text-gray-900 font-medium">School Level</Label>
@@ -162,7 +163,6 @@ const WaitlistForm = ({ onSubmittingChange, onSuccess, setIsOpen }: WaitlistForm
                                         </ComboboxOption>
                                     )}
                                 </Combobox>
-                                {errors.schoolLevel ? <ErrorMessage>{errors.schoolLevel}</ErrorMessage> : null}
                             </Field>
                         </div>
                     </div>
@@ -171,13 +171,21 @@ const WaitlistForm = ({ onSubmittingChange, onSuccess, setIsOpen }: WaitlistForm
                         <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
                             <Field>
                                 <Label className="text-sm/6 text-gray-900 font-medium">Full Name</Label>
-                                <Input name="full-name" placeholder="Full Name" required data-invalid={Boolean(errors.adminFullName)} aria-invalid={Boolean(errors.adminFullName)} />
-                                {errors.adminFullName ? <ErrorMessage>{errors.adminFullName}</ErrorMessage> : null}
+                                <Input
+                                    placeholder="Full Name"
+                                    invalid={errors.adminFullName ? true : false}
+                                    {...register("adminFullName")}
+                                />
+                                {errors.adminFullName ? <ErrorMessage>{errors.adminFullName.message}</ErrorMessage> : null}
                             </Field>
                             <Field>
                                 <Label className="text-sm/6 text-gray-900 font-medium">Phone Number</Label>
-                                <Input name="phone-number" type="tel" placeholder="Phone Number" required data-invalid={Boolean(errors.adminPhone)} aria-invalid={Boolean(errors.adminPhone)} />
-                                {errors.adminPhone ? <ErrorMessage>{errors.adminPhone}</ErrorMessage> : null}
+                                <Input
+                                    type="tel" placeholder="Phone Number"
+                                    invalid={errors.adminPhone ? true : false}
+                                    {...register("adminPhone")}
+                                />
+                                {errors.adminPhone ? <ErrorMessage>{errors.adminPhone.message}</ErrorMessage> : null}
                             </Field>
                         </div>
                     </div>
