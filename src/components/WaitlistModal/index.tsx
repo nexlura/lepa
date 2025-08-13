@@ -13,7 +13,7 @@ const WaitlistModal = ({ isOpen, setIsOpen }: WaitlistModalProps) => {
     const [isSubmitting, setIsSubmitting] = useState(false)
 
     return (
-        <Dialog size="xl" open={isOpen} onClose={setIsOpen} className='relative z-20'>
+        <Dialog size="md" open={isOpen} onClose={setIsOpen} className='relative z-20'>
             <DialogTitle>Get Early Access!</DialogTitle>
             <DialogDescription>
                 Be among the first to streamline your admissions with Lepa.
@@ -26,10 +26,7 @@ const WaitlistModal = ({ isOpen, setIsOpen }: WaitlistModalProps) => {
                 />
             </DialogBody>
             <DialogActions >
-                <Button outline className='' onClick={() => setIsOpen(false)} >
-                    Cancel
-                </Button>
-                <Button className='' color='primary' form="waitlist-form" type="submit" disabled={isSubmitting}>
+                <Button className='min-w-sm' color='primary' form="waitlist-form" type="submit" disabled={isSubmitting}>
                     {isSubmitting ? 'Submitting…' : 'Join waitlist'}
                 </Button>
             </DialogActions>

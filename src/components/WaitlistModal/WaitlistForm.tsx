@@ -9,14 +9,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { ErrorMessage, Field, Label } from "../UIKit/Fieldset"
 import { Input } from "../UIKit/Input"
 import { FeedbackContext } from "@/context/feedback"
-import SelectMenu from "../UIKit/SelectMenu"
-
-const levels = [
-    { id: 1, name: 'Pre-Primary' },
-    { id: 2, name: 'Primary' },
-    { id: 3, name: 'Secondary' },
-    { id: 4, name: 'All Levels' }
-]
 
 const WaitlistSchema = z.object({
     schoolName: z.string().min(2, 'School name is required'),
@@ -77,7 +69,6 @@ const WaitlistForm = ({ onSubmittingChange, onSuccess, setIsOpen }: WaitlistForm
     const { setFeedback } = useContext(FeedbackContext)
 
 
-    const [selectedLevel, setSelectedLevel] = useState(levels[1])
     const [showAlert, setShowAlert] = useState(false)
     const [submittionRes, setSubmittionRes] = useState<string>('')
 
@@ -93,7 +84,7 @@ const WaitlistForm = ({ onSubmittingChange, onSuccess, setIsOpen }: WaitlistForm
 
         const payload = {
             schoolName: String(formData.get('schoolName')).trim(),
-            schoolLevel: selectedLevel?.name ?? '',
+            schoolLevel: 'all levels',
             adminFullName: String(formData.get('adminFullName')).trim(),
             adminPhone: String(formData.get('adminPhone')).trim(),
         }
@@ -131,8 +122,7 @@ const WaitlistForm = ({ onSubmittingChange, onSuccess, setIsOpen }: WaitlistForm
             <form id="waitlist-form" onSubmit={handleSubmit(onSubmit)}>
                 <div className="space-y-1 mt-10">
                     <div className="border-gray-900/10 pb-8">
-                        <h2 className="text-base/7 font-semibold text-gray-900">School Information</h2>
-                        <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
+                        <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-5 ">
                             <Field className="w-full">
                                 <Label className="text-sm/6 text-gray-900 font-medium">School Name</Label>
                                 <Input
@@ -142,27 +132,24 @@ const WaitlistForm = ({ onSubmittingChange, onSuccess, setIsOpen }: WaitlistForm
                                 />
                                 {errors.schoolName ? <ErrorMessage>{errors.schoolName.message}</ErrorMessage> : null}
                             </Field>
-                            <Field>
-                                <SelectMenu options={levels} selected={selectedLevel} setSelected={setSelectedLevel} />
-                            </Field>
                         </div>
                     </div>
                     <div className=" border-gray-900/10 pb-8">
-                        <h2 className="text-base/7 font-semibold text-gray-900">Admin Information</h2>
+                        {/* <h2 className="text-base/7 font-semibold text-gray-900">Admin Information</h2> */}
                         <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
                             <Field>
-                                <Label className="text-sm/6 text-gray-900 font-medium">Full Name</Label>
+                                <Label className="text-sm/6 text-gray-900 font-medium">Admin Name</Label>
                                 <Input
-                                    placeholder="Full Name"
+                                    placeholder="Admin Name"
                                     invalid={errors.adminFullName ? true : false}
                                     {...register("adminFullName")}
                                 />
                                 {errors.adminFullName ? <ErrorMessage>{errors.adminFullName.message}</ErrorMessage> : null}
                             </Field>
                             <Field>
-                                <Label className="text-sm/6 text-gray-900 font-medium">Phone Number</Label>
+                                <Label className="text-sm/6 text-gray-900 font-medium">Admin Telephone</Label>
                                 <Input
-                                    type="tel" placeholder="Phone Number"
+                                    type="tel" placeholder="Admin Telephone"
                                     invalid={errors.adminPhone ? true : false}
                                     {...register("adminPhone")}
                                 />
