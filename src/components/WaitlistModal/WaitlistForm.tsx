@@ -6,10 +6,10 @@ import { XCircleIcon, XMarkIcon } from "@heroicons/react/20/solid"
 import { useForm } from 'react-hook-form'
 import { zodResolver } from "@hookform/resolvers/zod"
 
-import { Combobox, ComboboxLabel, ComboboxOption } from "../UIKit/ComboBox"
 import { ErrorMessage, Field, Label } from "../UIKit/Fieldset"
 import { Input } from "../UIKit/Input"
 import { FeedbackContext } from "@/context/feedback"
+import SelectMenu from "../UIKit/SelectMenu"
 
 const levels = [
     { id: 1, name: 'Pre-Primary' },
@@ -81,12 +81,6 @@ const WaitlistForm = ({ onSubmittingChange, onSuccess, setIsOpen }: WaitlistForm
     const [showAlert, setShowAlert] = useState(false)
     const [submittionRes, setSubmittionRes] = useState<string>('')
 
-    const handleLevelChange = (level: typeof levels[0] | null) => {
-        if (level) {
-            setSelectedLevel(level)
-        }
-    }
-
     const onSubmit = async (data: Waitlist) => {
         const { adminFullName, adminPhone, schoolName } = data
 
@@ -149,20 +143,7 @@ const WaitlistForm = ({ onSubmittingChange, onSuccess, setIsOpen }: WaitlistForm
                                 {errors.schoolName ? <ErrorMessage>{errors.schoolName.message}</ErrorMessage> : null}
                             </Field>
                             <Field>
-                                <Label className="text-sm/6 text-gray-900 font-medium">School Level</Label>
-                                <Combobox
-                                    name="school-level"
-                                    options={levels}
-                                    displayValue={(level) => (level as typeof levels[number])?.name}
-                                    defaultValue={selectedLevel}
-                                    onChange={handleLevelChange}
-                                >
-                                    {(level) => (
-                                        <ComboboxOption value={level}>
-                                            <ComboboxLabel>{(level as typeof levels[number]).name}</ComboboxLabel>
-                                        </ComboboxOption>
-                                    )}
-                                </Combobox>
+                                <SelectMenu options={levels} selected={selectedLevel} setSelected={setSelectedLevel} />
                             </Field>
                         </div>
                     </div>
