@@ -26,7 +26,7 @@ const WaitlistModal = ({ isOpen, setIsOpen }: WaitlistModalProps) => {
                 />
             </DialogBody>
             <DialogActions >
-                <Button className='min-w-sm' color='primary' form="waitlist-form" type="submit" disabled={isSubmitting}>
+                <Button className='w-full sm:min-w-sm' color='primary' form="waitlist-form" type="submit" disabled={isSubmitting}>
                     {isSubmitting ? 'Submitting…' : 'Join waitlist'}
                 </Button>
             </DialogActions>
