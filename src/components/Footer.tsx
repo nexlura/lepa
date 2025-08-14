@@ -10,6 +10,17 @@ const Footer = () => {
                             The modern solution for primary and secondary schools to manage student admissions efficiently and effectively.
                         </p>
                     </div>
+                    <div className="col-span-2">
+                        <h4 className="text-md font-bold text-primary-400 mb-4">Contact</h4>
+                        <div className="mt-1 text-white/70 text-sm">
+                            <dt className="sr-only">Phone number</dt>
+                            <dd>+232 (72) 069-202</dd>
+                        </div>
+                        <div className="mt-1 text-white/70 text-sm">
+                            <dt className="sr-only">Phone number</dt>
+                            <dd>+232 (79) 712-365</dd>
+                        </div>
+                    </div>
 
                     {/* <div>
               <h4 className="font-semibold mb-4">Product</h4>
@@ -30,8 +41,8 @@ const Footer = () => {
             </div> */}
                 </div>
 
-                <div className="border-t border-white/20 mt-8 pt-8 text-center text-white/70">
-                    <p>&copy; 2024 Lepa. All rights reserved.</p>
+                <div className="border-t text-sm border-white/20 mt-8 pt-8 text-center text-white/70">
+                    <p>&copy; 2024 Nexlura. All rights reserved.</p>
                 </div>
             </div>
         </footer>
