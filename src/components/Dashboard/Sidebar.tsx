@@ -9,6 +9,7 @@ import {
     Cog6ToothIcon,
     ArrowRightOnRectangleIcon,
     XMarkIcon,
+    ArrowRightEndOnRectangleIcon,
 } from '@heroicons/react/24/outline';
 
 interface SidebarProps {
@@ -20,7 +21,7 @@ const navigation = [
     { name: 'Dashboard', href: '/admin', icon: HomeIcon },
     { name: 'Students', href: '/admin/students', icon: UserGroupIcon },
     { name: 'Teachers', href: '/admin/teachers', icon: AcademicCapIcon },
-    { name: 'Settings', href: '/admin/settings', icon: Cog6ToothIcon },
+    // { name: 'Settings', href: '/admin/settings', icon: Cog6ToothIcon },
 ];
 
 export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
@@ -38,17 +39,14 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
 
             {/* Sidebar */}
             <div
-                className={`fixed inset-y-0 left-0 z-50 w-64 transform bg-white shadow-lg transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'
+                className={`fixed rounded-lg inset-y-0 left-0 my-4 lg:ml-4 z-50 w-64 transform bg-gradient-to-br from-primary-50 to-secondary-50 shadow-lg transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'
                     }`}
             >
                 <div className="flex h-full flex-col">
                     {/* Header */}
-                    <div className="flex h-16 items-center justify-between px-6 border-b border-gray-200">
+                    <div className="flex h-16 items-center justify-between px-6 border-gray-200">
                         <div className="flex items-center">
-                            <div className="h-8 w-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                                <span className="text-white font-bold text-lg">L</span>
-                            </div>
-                            <span className="ml-3 text-xl font-semibold text-gray-900">Lepa Admin</span>
+                            <h1 className="text-2xl font-bold text-primary-600">Lepa</h1>
                         </div>
                         <button
                             onClick={onToggle}
@@ -66,13 +64,13 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
                                 <Link
                                     key={item.name}
                                     href={item.href}
-                                    className={`group flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${isActive
-                                        ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700'
-                                        : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                                    className={`group flex text-accent-900 items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${isActive
+                                        ? 'bg-primary-100'
+                                        : 'hover:bg-primary-50 hover:text-gray-900'
                                         }`}
                                 >
                                     <item.icon
-                                        className={`mr-3 h-5 w-5 flex-shrink-0 ${isActive ? 'text-blue-700' : 'text-gray-400 group-hover:text-gray-500'
+                                        className={`mr-3 h-5 w-5 flex-shrink-0 text-accent-900 ${isActive ? '' : ' group-hover:text-gray-500'
                                             }`}
                                     />
                                     {item.name}
@@ -82,16 +80,29 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
                     </nav>
 
                     {/* Logout */}
-                    <div className="border-t border-gray-200 p-4">
-                        <button
-                            className="group flex w-full items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-50 hover:text-gray-900 transition-colors"
+                    <div className=" border-gray-200 p-4">
+                        <Link
+                            href={'settings'}
+                            className={`group flex text-accent-900 items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${'settings' === pathname
+                                ? 'bg-primary-100'
+                                : 'hover:bg-primary-50 hover:text-gray-900'
+                                }`}
                         >
-                            <ArrowRightOnRectangleIcon className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" />
+                            <Cog6ToothIcon
+                                className={`mr-3 h-5 w-5 flex-shrink-0 text-accent-900 ${'settings' === pathname ? '' : ' group-hover:text-gray-500'
+                                    }`}
+                            />
+                            Settings
+                        </Link>
+                        <button
+                            className="group flex w-full items-center px-3 py-2 text-sm font-medium text-accent-900 rounded-md hover:bg-primary-50 hover:text-gray-900 transition-colors"
+                        >
+                            <ArrowRightEndOnRectangleIcon className="mr-3 h-5 w-5 text-accent-900 group-hover:text-gray-500" />
                             Logout
                         </button>
                     </div>
                 </div>
-            </div>
+            </div >
         </>
     );
 } 
