@@ -9,6 +9,7 @@ import {
     Cog6ToothIcon,
     XMarkIcon,
     ArrowRightEndOnRectangleIcon,
+    BookOpenIcon,
 } from '@heroicons/react/24/outline';
 
 interface SidebarProps {
@@ -18,8 +19,9 @@ interface SidebarProps {
 
 const navigation = [
     { name: 'Dashboard', href: '/admin', icon: HomeIcon },
-    { name: 'Students', href: '/admin/students', icon: UserGroupIcon },
+    { name: 'Classes', href: '/admin/classes', icon: BookOpenIcon },
     { name: 'Teachers', href: '/admin/teachers', icon: AcademicCapIcon },
+    { name: 'Students', href: '/admin/students', icon: UserGroupIcon },
 ];
 
 export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
