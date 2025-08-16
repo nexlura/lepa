@@ -7,7 +7,6 @@ import {
     UserGroupIcon,
     AcademicCapIcon,
     Cog6ToothIcon,
-    ArrowRightOnRectangleIcon,
     XMarkIcon,
     ArrowRightEndOnRectangleIcon,
 } from '@heroicons/react/24/outline';
@@ -21,7 +20,6 @@ const navigation = [
     { name: 'Dashboard', href: '/admin', icon: HomeIcon },
     { name: 'Students', href: '/admin/students', icon: UserGroupIcon },
     { name: 'Teachers', href: '/admin/teachers', icon: AcademicCapIcon },
-    // { name: 'Settings', href: '/admin/settings', icon: Cog6ToothIcon },
 ];
 
 export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
@@ -39,7 +37,7 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
 
             {/* Sidebar */}
             <div
-                className={`fixed rounded-lg inset-y-0 left-0 my-4 lg:ml-4 z-50 w-64 transform bg-gradient-to-br from-primary-50 to-secondary-50 shadow-lg transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'
+                className={`fixed sm:rounded-lg inset-y-0 left-0 sm:my-4 lg:ml-4 z-50 w-64 transform bg-gradient-to-br from-primary-50 to-secondary-50 shadow-lg transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'
                     }`}
             >
                 <div className="flex h-full flex-col">
@@ -82,8 +80,8 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
                     {/* Logout */}
                     <div className=" border-gray-200 p-4">
                         <Link
-                            href={'settings'}
-                            className={`group flex text-accent-900 items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${'settings' === pathname
+                            href={'/admin/settings'}
+                            className={`group flex text-accent-900 items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${'/admin/settings' === pathname
                                 ? 'bg-primary-100'
                                 : 'hover:bg-primary-50 hover:text-gray-900'
                                 }`}
