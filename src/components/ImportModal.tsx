@@ -77,7 +77,7 @@ const ImportCsvModal = ({
         <Dialog size="md" open={open} onClose={onClose} className="relative z-20">
             <DialogTitle>Import Classes from CSV</DialogTitle>
             <DialogDescription>
-                Upload a CSV with headers: <span className="font-mono">name, grade, section, homeroomTeacher, capacity</span>.
+                Upload a CSV with headers: <span className="font-mono">name, teacher</span>.
             </DialogDescription>
             <DialogBody>
                 {error ? (
