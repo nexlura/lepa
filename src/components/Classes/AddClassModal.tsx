@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Dialog, DialogActions, DialogBody, DialogDescription, DialogTitle } from '@/components/UIKit/Dialog'
 import { Field, Label, ErrorMessage } from '@/components/UIKit/Fieldset'
 import { Input } from '@/components/UIKit/Input'
-import { Button } from './UIKit/Button'
+import { Button } from '../UIKit/Button'
 
 const AddClassModal = ({
     open,

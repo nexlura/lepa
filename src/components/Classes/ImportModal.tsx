@@ -1,8 +1,8 @@
 import { useState } from "react"
 
-import { Dialog, DialogActions, DialogBody, DialogDescription, DialogTitle } from "./UIKit/Dialog"
-import { Button } from "./UIKit/Button"
-import { Field, Label } from "./UIKit/Fieldset"
+import { Dialog, DialogActions, DialogBody, DialogDescription, DialogTitle } from "../UIKit/Dialog"
+import { Button } from "../UIKit/Button"
+import { Field, Label } from "../UIKit/Fieldset"
 
 const ImportCsvModal = ({
     open,

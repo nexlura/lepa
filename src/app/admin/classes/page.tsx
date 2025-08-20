@@ -8,8 +8,8 @@ import {
 } from '@heroicons/react/24/outline'
 
 import { Button } from '@/components/UIKit/Button'
-import ImportCsvModal from '@/components/ImportModal'
-import AddClassModal from '@/components/AddClassModal'
+import ImportCsvModal from '@/components/Classes/ImportModal'
+import AddClassModal from '@/components/Classes/AddClassModal'
 
 
 type SchoolClass = {
