@@ -2,10 +2,11 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
+import Image from 'next/image'
 
 import WaitListModal from './WaitlistModal'
 import { Button } from './UIKit/Button'
-
+import logo from "../../public/logo.png"
 
 const Navigation = () => {
     const [open, setOpen] = useState(false)
@@ -16,7 +17,12 @@ const Navigation = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-16">
                         <div className="flex items-center">
-                            <h1 className="text-2xl font-bold text-primary-600">Lepa</h1>
+                            {/* <Image src='/lockup-light-background.png' height={35} alt='logo' /> */}
+                            <Image
+                                src={logo}
+                                alt="Lepa Logo"
+                                height={30}
+                            />
                         </div>
 
                         {/* Desktop Navigation */}
